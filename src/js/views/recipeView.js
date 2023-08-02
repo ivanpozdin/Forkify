@@ -1,6 +1,6 @@
 import icons from 'url:../../img/icons.svg';
 import View from './view';
-import { Fraction } from 'fractional';
+import fracty from 'fracty';
 
 class RecipeView extends View {
   _parentElement = document.querySelector('.recipe');
@@ -9,6 +9,7 @@ class RecipeView extends View {
   _message = '';
 
   _generateMarkup() {
+    console.log('generating markup...');
     return `
         <figure class="recipe__fig">
           <img src="${this._data.image}" alt="${
@@ -121,18 +122,20 @@ class RecipeView extends View {
     });
   }
 
-  _generateMarkupIngredient(ing) {
+  _generateMarkupIngredient(ingredient) {
     return `
           <li class="recipe__ingredient">
               <svg class="recipe__icon">
                 <use href="${icons}#icon-check"></use>
               </svg>
               <div class="recipe__quantity">${
-                !ing.quantity ? '' : new Fraction(ing.quantity).toString()
+                !ingredient.quantity
+                  ? ''
+                  : fracty(ingredient.quantity).toString()
               }</div>
               <div class="recipe__description">
-                <span class="recipe__unit">${ing.unit}</span>
-                ${ing.description}
+                <span class="recipe__unit">${ingredient.unit}</span>
+                ${ingredient.description}
               </div>
           </li>
           `;
