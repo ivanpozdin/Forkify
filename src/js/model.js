@@ -124,12 +124,10 @@ export const uploadRecipe = async function (newRecipe) {
       cooking_time: +newRecipe.cookingTime,
       ingredients,
     };
-    console.log(recipe);
 
     const { data } = await getJSON(`${API_URL}?key=${API_KEY}`, recipe);
     state.recipe = convertRecipeToCamelCase(data.recipe);
     addBookmark(state.recipe);
-    console.log(data);
   } catch (e) {
     throw e;
   }
